@@ -91,27 +91,28 @@
         
         <form id="passwordForm">
             <input type="password" id="passwordInput" placeholder="Enter password" autofocus>
-            <button onclick="checkPassword()">Submit</button>
+            <div id="error" class="error"></div>
+            <button type="submit">Continue</button>
         </form>
     </div>
-<script>
-    const routes = {
-        "253537": "https://maizen-6-5.vercel.app/Maizen.html",       // password "pass1" → page1
-        "Student": "README.md",      // password "secret" → page2     // you can add more!
-        "735352": "https://maizen-6-7.vercel.app/Maizen.html"
-    };
+    <script>
+        const CORRECT_PASSWORD = "253537"; // CHANGE PASSWORD HERE
+        const REDIRECT_URL = "/Maizen.html";
+        
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+            const errorDiv = document.getElementById('error');
+            
+            if (password === CORRECT_PASSWORD) {
+                window.location.href = REDIRECT_URL;
+            } else {
+                errorDiv.textContent = 'Incorrect password';
+                document.getElementById('passwordInput').value = '';
+            }
+        });
+    </script>
 
-    function checkPassword() {
-        const input = document.getElementById("password").value;
-
-        if (routes[input]) {
-            // instant redirect to the corresponding page
-            window.location.href = routes[input];
-        } else {
-            alert("Incorrect password.");
-        }
-    }
-</script>
 </body>
     
 </html>
